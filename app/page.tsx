@@ -1,6 +1,6 @@
 import NewsFeed from "@/components/NewsFeed";
 import NavBar from "@/components/shared/NavBar";
-import { fetchAndDeduplicateNews, fetchNews } from "@/lib/newsHelpers";
+import { fetchAndDeduplicateNews } from "@/lib/newsHelpers";
 import ReduxProvider from "@/redux/reduxProvider";
 
 export default async function Home() {

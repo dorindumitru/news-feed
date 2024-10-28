@@ -1,6 +1,5 @@
 import {getNews} from "@/server/finnhub/finnhub";
 import {NewsArticle} from "@/types/NewsArticle";
-import {randomUUID} from "crypto";
 
 const formatDate = (date: Date) => {
   return date.toISOString().split("T")[0];
@@ -39,32 +38,15 @@ const getNewsForTopCompanies = async (): Promise<NewsArticle[]> => {
   return allNews;
 };
 
-export const fetchNews = async (): Promise<NewsArticle[]> => {
-  try {
-    const newsData: NewsArticle[] = [];
-    const news = await getNewsForTopCompanies();
-    for (let i = 0; i < news.length; i++) {
-      news[i].id = String(i);
-      newsData.push(news[i]);
-    }
-    return newsData;
-  } catch (error) {
-    console.error("Error fetching news:", error);
-    return [];
-  }
-};
-
 export async function fetchAndDeduplicateNews(): Promise<NewsArticle[]> {
   const {startDate, endDate} = getLast10DaysRange();
 
   const requests = topCompanies.map((topCompany) => getNews(topCompany.symbol, startDate, endDate));
   const articles = await Promise.all(requests);
-  // const articles = await Promise.all(results.map((result) => result.json()));
 
-  // Flatten and deduplicate articles by ID
   const allArticles = articles.flat();
   return allArticles.map((article, index) => ({
     ...article,
-    uniqueId: `${article.id}-${index}`, // Generate a unique identifier
+    uniqueId: `${article.id}-${index}`,
   }));
 }

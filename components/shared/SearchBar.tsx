@@ -51,8 +51,8 @@ const SearchBar = () => {
                 <div className="absolute top-12 left-0 w-full bg-white shadow-lg rounded-lg overflow-hidden max-h-60 overflow-y-auto">
                     {filteredArticles.map(article => (
                         <div
-                            key={article.id}
-                            onClick={() => handleArticleClick(article.id)}
+                            key={article.uniqueId}
+                            onClick={() => handleArticleClick(article.uniqueId)}
                             className="flex items-center p-2 cursor-pointer hover:bg-gray-100"
                         >
                             {article.image && <img src={article.image} alt="thumbnail" className="w-10 h-10 object-cover mr-3 rounded-full" />}

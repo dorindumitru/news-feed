@@ -25,19 +25,6 @@ const getLast10DaysRange = () => {
   return {startDate, endDate};
 };
 
-const getNewsForTopCompanies = async (): Promise<NewsArticle[]> => {
-  const {startDate, endDate} = getLast10DaysRange();
-  const allNews: NewsArticle[] = [];
-  for (const topCompany of topCompanies) {
-    const news = await getNews(topCompany.symbol, startDate, endDate);
-    for (const newsArticle of news) {
-      allNews.push(newsArticle);
-    }
-  }
-
-  return allNews;
-};
-
 export async function fetchAndDeduplicateNews(): Promise<NewsArticle[]> {
   const {startDate, endDate} = getLast10DaysRange();
 

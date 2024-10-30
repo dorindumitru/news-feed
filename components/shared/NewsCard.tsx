@@ -1,10 +1,10 @@
 import React from 'react';
-import { NewsArticle } from '@/types/NewsArticle';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewsToBookmarks, removeNewsFromBookmarks } from '../../redux/slices/bookmarkedNewsSlice';
-import { RootState } from '../../redux/store';
 import { IoIosStar } from "react-icons/io";
 import Link from 'next/link';
+import { addNewsToBookmarks, removeNewsFromBookmarks } from '@/redux/slices/bookmarkedNewsSlice';
+import { RootState } from '@/redux/store';
+import { NewsArticle } from '@/types/NewsArticle';
 interface NewsCardProps {
     article: NewsArticle;
 }

@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import { IoMdSearch } from "react-icons/io";
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import { RootState } from '@/redux/store';
 import { NewsArticle } from '@/types/NewsArticle';
-import { useRouter } from 'next/navigation';
 
 const SearchBar = () => {
     const router = useRouter();

@@ -1,11 +1,11 @@
 'use client'
+import React from 'react'
 import { removeNewsFromBookmarks, addNewsToBookmarks } from '@/redux/slices/bookmarkedNewsSlice';
 import { RootState } from '@/redux/store';
 import { IoIosStar } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
-import { NewsArticle as NewsArticleType } from '../../types/NewsArticle'
-import React from 'react'
 import { useSearchParams } from 'next/navigation';
+import { NewsArticle as NewsArticleType } from '@/types/NewsArticle'
 
 const NewsArticle = () => {
     const dispatch = useDispatch();

@@ -1,10 +1,10 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { NewsArticle } from '@/types/NewsArticle';
-import NewsCard from './shared/NewsCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { setNews } from "../redux/slices/newsSlice";
+import NewsCard from '@/components/shared/NewsCard';
+import { setNews } from "@/redux/slices/newsSlice";
+import { NewsArticle } from '@/types/NewsArticle';
 
 const NewsFeed = ({ initialArticles, isBookmarkPage }: { initialArticles: NewsArticle[], isBookmarkPage: boolean }) => {
     const dispatch = useDispatch();
@@ -21,9 +21,9 @@ const NewsFeed = ({ initialArticles, isBookmarkPage }: { initialArticles: NewsAr
     const [itemsPerPage, setItemsPerPage] = useState<number>(7);
     const [currentPage, setCurrentPage] = useState(1);
 
-    if (reduxNews.length < 1) {
-        dispatch(setNews(articles));
-    }
+    // if (reduxNews.length < 1) {
+    //     dispatch(setNews(articles));
+    // }
 
     const totalPages = Math.ceil(articles.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;

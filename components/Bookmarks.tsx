@@ -1,14 +1,17 @@
 'use client'
 import NewsFeed from './NewsFeed';
+import { useEffect, useState } from "react";
 
 const Bookmarks = () => {
-    const bookmarkedArticles = typeof window !== "undefined" && localStorage.getItem("bookmarkedNews")
-        ? JSON.parse(localStorage.getItem("bookmarkedNews") as string)
-        : []
+    const [bookmarkedArticles, setBookmarkedArticles] = useState([]);
+
+    useEffect(() => {
+        const storedBookmarks = localStorage.getItem("bookmarkedNews");
+        setBookmarkedArticles(JSON.parse(storedBookmarks || '[]'));
+    }, []);
+
     return (
-        < >
-            <NewsFeed initialArticles={bookmarkedArticles} isBookmarkPage={true} />
-        </>
+        <NewsFeed initialArticles={bookmarkedArticles} isBookmarkPage={true} />
     );
 };
 

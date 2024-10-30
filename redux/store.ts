@@ -1,6 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
-import bookmarkedNewsReducer from "./slices/bookmarkedNewsSlice";
-import newsReducer from "./slices/newsSlice";
+import bookmarkedNewsReducer from "@/redux/slices/bookmarkedNewsSlice";
+import newsReducer from "@/redux/slices/newsSlice";
 
 export const store = configureStore({
   reducer: {

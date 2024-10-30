@@ -1,16 +1,23 @@
+import axios, {AxiosResponse} from "axios";
 import {NewsArticle} from "@/types/NewsArticle";
-import axios from "axios";
+import getConfig from "next/config";
 
-const finnhubApiKey = process.env.FINNHUB_API_KEY;
-const finnhubUrl = "https://finnhub.io/api/v1/";
+const {serverRuntimeConfig} = getConfig();
+const finnHubConfig = serverRuntimeConfig.finnHub;
 
 export const getNews = async (
   symbol: string,
   fromDate: string,
   toDate: string
 ): Promise<NewsArticle[]> => {
-  const news = await axios.get(
-    `${finnhubUrl}company-news?symbol=${symbol}&from=${fromDate}&to=${toDate}&token=${finnhubApiKey}`
-  );
-  return news.data;
+  const {apiKey, apiEndpoint} = finnHubConfig;
+  const url = `${apiEndpoint}company-news?symbol=${symbol}&from=${fromDate}&to=${toDate}&token=${apiKey}`;
+
+  try {
+    const response: AxiosResponse<NewsArticle[]> = await axios.get(url.toString());
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
 };

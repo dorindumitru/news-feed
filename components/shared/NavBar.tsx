@@ -11,27 +11,34 @@ const NavBar = () => {
         { href: '/bookmarks', label: 'Bookmarks' },
     ];
 
-    // Memoize the function to prevent re-creating on each render
     const linkClass = useCallback((path: string) =>
-        `font-bold text-4xl ${pathName === path ? 'text-white' : 'text-slate-400'}`,
+        `font-bold text-xl ${pathName === path ? 'text-white' : 'text-slate-400'} hover:text-white transition`,
         [pathName]
     );
 
     return (
-        <div className="w-screen flex flex-row justify-between items-center pr-4 bg-gray-800">
-            <div className='flex flex-row items-start gap-6 p-4 bg-gray-800 h-[10vh]'>
-                {links.map((link) => (
-                    <Link
-                        key={link.href}
-                        href={link.href}
-                        className={linkClass(link.href)}
-                    >
-                        {link.label}
-                    </Link>
-                ))}
+        <nav className="bg-gray-800 p-4 flex flex-col md:flex-row justify-between items-center h-[10vh]">
+
+            <div className="flex flex-col md:flex-row md:items-center md:flex-1">
+                <div className="flex flex-row justify-start space-x-8 md:space-x-0 gap-3">
+                    {links.map((link) => (
+                        <Link
+                            key={link.href}
+                            href={link.href}
+                            className={linkClass(link.href)}
+                        >
+                            {link.label}
+                        </Link>
+                    ))}
+                </div>
             </div>
-            <SearchBar />
-        </div>
+
+            <div className="mt-4 md:mt-0 md:w-auto w-full max-w-md">
+                <div className="flex justify-center">
+                    <SearchBar />
+                </div>
+            </div>
+        </nav>
     )
 }
 

@@ -29,18 +29,18 @@ const NewsArticle = () => {
 
     return (
         <div className="flex flex-col justify-between h-[90vh] p-5 bg-cover bg-center" style={{ backgroundImage: newsArticle.image !== "" ? `url(${newsArticle.image})` : `url(https://indieground.net/wp-content/uploads/2023/03/Freebie-GradientTextures-Preview-06.jpg)` }}>
-            {/* Upper Section */}
-            <div>
+
+            <div className="text-center">
                 <h1 className="text-4xl font-bold mb-4 p-2 rounded-lg text-white bg-gradient-to-r from-slate-400 to-transparent">
                     {newsArticle.headline}
                 </h1>
-                <div className='flex justify-between items-center'>
+                <div className='flex flex-col md:flex-row justify-between items-center mb-4'>
                     <div className="text-sm text-gray-400">
                         <span>{new Date(newsArticle.datetime).toLocaleDateString()}</span> |
                         <span> {newsArticle.source}</span>
                     </div>
                     <button
-                        className={`px-3 py-1 rounded-md ${isBookmarked ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
+                        className={`px-3 py-1 rounded-md mt-2 md:mt-0 ${isBookmarked ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
                             } text-white`}
                         onClick={handleBookmarkClick}
                     >
@@ -49,17 +49,25 @@ const NewsArticle = () => {
                 </div>
             </div>
 
-            {/* Summary and Links */}
-            <div>
-                <p className="text-lg mb-4 p-2 rounded-md text-white bg-gradient-to-r from-slate-900 to-transparent ">
+            <div className="bg-white bg-opacity-80 p-4 rounded-lg shadow-md mt-4">
+                <p className="text-lg mb-4 text-gray-800">
                     {newsArticle.summary}
                 </p>
                 <div className='flex justify-between items-start'>
                     <div>
-                        <p className="text-gray-400">Category: {newsArticle.category}</p>
-                        <p className="text-gray-400">Related: {newsArticle.related}</p>
+                        <p className="text-gray-700 font-semibold">Category: <span className="text-gray-500">{newsArticle.category}</span></p>
+                        <p className="text-gray-700 font-semibold">Related: <span className="text-gray-500">{newsArticle.related}</span></p>
                     </div>
-                    <a href={newsArticle.url} target="_blank" className="text-blue-500 underline mt-4">Read full article</a>
+                    <a
+                        href={newsArticle.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-500 to-blue-500 group-hover:from-green-500 group-hover:to-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200"
+                    >
+                        <span className="relative text-center px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                            Read full article
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>

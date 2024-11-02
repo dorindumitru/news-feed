@@ -23,7 +23,7 @@ const SearchBar = () => {
     };
 
     const handleArticleClick = (id: string) => {
-        router.push(`/news/${id}`);
+        router.push(`/news/?id=${id}`);
         setSearchTerm('');
         setFilteredArticles([]);
     };
@@ -46,7 +46,6 @@ const SearchBar = () => {
                 </button>
             </div>
 
-            {/* Dropdown for filtered articles */}
             {searchTerm && filteredArticles.length > 0 && (
                 <div className="absolute top-12 left-0 w-full bg-white shadow-lg rounded-lg overflow-hidden max-h-60 overflow-y-auto">
                     {filteredArticles.map(article => (

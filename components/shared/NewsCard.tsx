@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { addNewsToBookmarks, removeNewsFromBookmarks } from '@/redux/slices/bookmarkedNewsSlice';
 import { RootState } from '@/redux/store';
 import { NewsArticle } from '@/types/NewsArticle';
+
 interface NewsCardProps {
     article: NewsArticle;
 }
@@ -22,6 +23,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ article }) => {
             dispatch(addNewsToBookmarks(article));
         }
     };
+
     return (
         <div
             className="bg-cover bg-center rounded-lg p-4 h-[100%] flex flex-col justify-between"

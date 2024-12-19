@@ -19,9 +19,9 @@ const NewsArticle = () => {
     const bookmarkedArticles = useSelector((state: RootState) => state.bookmarkedNews.newsArticles);
     const newsArticles: NewsArticleType[] = useSelector((state: RootState) => state.news.newsArticles);
     const newsArticle = newsArticles.find(article => article.uniqueId === searchParams.get("id"));
-    if (newsArticle === undefined) { return (<>News article not found</>); }
+    const [imageSrc] = useState(newsArticle?.image || getRandomFallbackImage());
 
-    const [imageSrc, setImageSrc] = useState(newsArticle.image || getRandomFallbackImage());
+    if (newsArticle === undefined) { return (<>News article not found</>); }
 
     const isBookmarked = bookmarkedArticles.some((news: NewsArticleType) => news.uniqueId === newsArticle.uniqueId);
 

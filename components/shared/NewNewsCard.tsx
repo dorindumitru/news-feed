@@ -25,7 +25,7 @@ const NewNewsCard = forwardRef<HTMLDivElement, NewNewsCardProps>(({ article }, r
   const dispatch = useDispatch();
   const bookmarkedArticles = useSelector((state: RootState) => state.bookmarkedNews.newsArticles);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [imageSrc, setImageSrc] = useState(article.image || getRandomFallbackImage());
+  const [imageSrc] = useState(article.image || getRandomFallbackImage());
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

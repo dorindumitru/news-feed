@@ -6,6 +6,14 @@ const nextConfig = {
       apiEndpoint: process.env.FINNHUB_API_ENDPOINT,
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

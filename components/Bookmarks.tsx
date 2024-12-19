@@ -7,7 +7,7 @@ const Bookmarks = () => {
 
     useEffect(() => {
         const storedBookmarks = localStorage.getItem("bookmarkedNews");
-        setBookmarkedArticles(JSON.parse(storedBookmarks || '[]'));
+        setBookmarkedArticles(JSON.parse(storedBookmarks ?? '[]'));
     }, []);
 
     return (

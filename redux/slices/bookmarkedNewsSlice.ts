@@ -5,27 +5,35 @@ export interface BookmarkedNewsState {
   newsArticles: NewsArticle[];
 }
 
+const loadBookmarks = (): NewsArticle[] => {
+  if (typeof window !== "undefined") {
+    const storedBookmarks = localStorage.getItem("bookmarkedNews");
+    return storedBookmarks ? JSON.parse(storedBookmarks) : [];
+  }
+  return [];
+};
+
+const saveBookmarks = (bookmarks: NewsArticle[]) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("bookmarkedNews", JSON.stringify(bookmarks));
+  }
+};
+
 const initialState: BookmarkedNewsState = {
-  newsArticles:
-    typeof window !== "undefined" && localStorage.getItem("bookmarkedNews")
-      ? JSON.parse(localStorage.getItem("bookmarkedNews") as string)
-      : [],
+  newsArticles: loadBookmarks(),
 };
 
 const bookmarkedNewsSlice = createSlice({
   name: "bookmarkedNews",
   initialState,
   reducers: {
-    // Action to add news to bookmarks
     addNewsToBookmarks: (state, action: PayloadAction<NewsArticle>) => {
       state.newsArticles.push(action.payload);
-      localStorage.setItem("bookmarkedNews", JSON.stringify(state.newsArticles)); // Save to localStorage
+      saveBookmarks(state.newsArticles);
     },
-
-    // Action to remove news from bookmarks by ID
     removeNewsFromBookmarks: (state, action: PayloadAction<string>) => {
       state.newsArticles = state.newsArticles.filter((article) => article.id !== action.payload);
-      localStorage.setItem("bookmarkedNews", JSON.stringify(state.newsArticles)); // Save to localStorage
+      saveBookmarks(state.newsArticles);
     },
   },
 });

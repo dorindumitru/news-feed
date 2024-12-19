@@ -1,6 +1,5 @@
-import {getNews} from "@/server/finnhub/finnhub";
 import {NewsArticle} from "@/types/NewsArticle";
-
+import {getNews} from "@/server/finnhub/finnhub";
 const formatDate = (date: Date) => {
   return date.toISOString().split("T")[0];
 };
@@ -13,7 +12,6 @@ const topCompanies = [
   {symbol: "FB", name: "Facebook"},
   {symbol: "TSLA", name: "Tesla"},
 ];
-
 const getLast10DaysRange = () => {
   const today = new Date();
   const tenDaysAgo = new Date();
@@ -25,6 +23,20 @@ const getLast10DaysRange = () => {
   return {startDate, endDate};
 };
 
+const loadArticles = (key: string): NewsArticle[] => {
+  if (typeof window !== "undefined") {
+    const storedArticles = localStorage.getItem(key);
+    return storedArticles ? JSON.parse(storedArticles) : [];
+  }
+  return [];
+};
+
+const saveArticles = (articles: NewsArticle[]) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("newsArticles", JSON.stringify(articles));
+  }
+};
+
 export async function fetchAndDeduplicateNews(): Promise<NewsArticle[]> {
   const {startDate, endDate} = getLast10DaysRange();
 
@@ -32,8 +44,16 @@ export async function fetchAndDeduplicateNews(): Promise<NewsArticle[]> {
   const articles = await Promise.all(requests);
 
   const allArticles = articles.flat();
-  return allArticles.map((article, index) => ({
-    ...article,
-    uniqueId: `${article.id}-${index}`,
-  }));
+  const existingArticles = loadArticles("newsArticles");
+
+  const newArticles = allArticles.filter(
+    (newArticle) =>
+      !existingArticles.some((existingArticle) => existingArticle.id === newArticle.id)
+  );
+
+  const updatedArticles = [...existingArticles, ...newArticles];
+
+  saveArticles(updatedArticles);
+
+  return updatedArticles;
 }

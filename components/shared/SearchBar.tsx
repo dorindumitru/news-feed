@@ -47,16 +47,17 @@ const SearchBar = () => {
             </div>
 
             {searchTerm && filteredArticles.length > 0 && (
-                <div className="absolute top-12 left-0 w-full bg-white shadow-lg rounded-lg overflow-hidden max-h-60 overflow-y-auto">
+                <div className="absolute top-12 left-0 w-full bg-white shadow-lg rounded-lg overflow-hidden max-h-60 overflow-y-auto z-50">
                     {filteredArticles.map(article => (
-                        <div
+                        <button
                             key={article.uniqueId}
                             onClick={() => handleArticleClick(article.uniqueId)}
+                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleArticleClick(article.uniqueId); }}
                             className="flex items-center p-2 cursor-pointer hover:bg-gray-100"
                         >
                             {article.image && <img src={article.image} alt="thumbnail" className="w-10 h-10 object-cover mr-3 rounded-full" />}
                             <span className="text-gray-700">{article.headline}</span>
-                        </div>
+                        </button>
                     ))}
                 </div>
             )}

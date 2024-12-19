@@ -26,13 +26,12 @@ const NewsCard: React.FC<NewsCardProps> = ({ article }) => {
 
     return (
         <div
-            className="bg-cover bg-center rounded-lg p-4 h-[100%] flex flex-col justify-between"
-            style={{ backgroundImage: article.image !== "" ? `url(${article.image})` : `url(https://indieground.net/wp-content/uploads/2023/03/Freebie-GradientTextures-Preview-06.jpg)` }}
+            className="bg-cover bg-center rounded-lg p-4 h-full flex flex-col justify-between"
+            style={{ backgroundImage: `url(${article.image || 'https://indieground.net/wp-content/uploads/2023/03/Freebie-GradientTextures-Preview-06.jpg'})` }}
         >
             <div className='flex flex-row justify-between'>
                 <button
-                    className={`px-3 py-1 rounded-md ${isBookmarked ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
-                        } text-white`}
+                    className={`px-3 py-1 rounded-md ${isBookmarked ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'} text-white`}
                     onClick={handleBookmarkClick}
                 >
                     <IoIosStar color={isBookmarked ? 'yellow' : "white"} />
@@ -41,12 +40,13 @@ const NewsCard: React.FC<NewsCardProps> = ({ article }) => {
             </div>
 
             <div className="flex flex-col justify-between items-center mt-4 text-white">
-                <Link href={`/news/?id=${article.uniqueId}`} className="text-l font-bold text-black rounded-sm p-1 bg-gradient-to-r from-slate-400 to-transparent mt-2">{article.headline}</Link>
+                <Link href={`/news/?id=${article.uniqueId}`} className="text-l font-bold text-black rounded-sm p-1 bg-gradient-to-r from-slate-400 to-transparent mt-2">
+                    {article.headline}
+                </Link>
                 <div>
                     <span className="text-sm">{article.source}</span>
                     <span className="block text-xs text-gray-300">{new Date(article.datetime).toLocaleString()}</span>
                 </div>
-
             </div>
         </div>
     );

@@ -28,7 +28,7 @@ const NewsFeed = ({ initialArticles, isBookmarkPage }: { initialArticles: NewsAr
 
   const observer = useRef<IntersectionObserver | null>(null);
   const lastArticleRef = useCallback(
-    (node) => {
+    (node: HTMLDivElement | null) => {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && currentPage * itemsPerPage < articles.length) {
